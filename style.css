@@ -820,6 +820,50 @@ button { cursor: pointer; border: none; background: none; }
 .about-desc { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; }
 .about-highlights { display: flex; flex-direction: column; gap: 16px; margin: 32px 0; }
 
+/* ACHIEVEMENTS */
+.about-achievements {
+  margin: 28px 0 8px;
+  padding: 24px 28px;
+  background: rgba(168, 85, 247, 0.05);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-left: 3px solid var(--purple);
+  border-radius: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-achievements:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.1);
+}
+
+.achievements-heading {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.achievements-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.achievements-list li {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding-left: 4px;
+}
+
+.achievements-list li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 .highlight-item {
   display: flex;
   align-items: center;
