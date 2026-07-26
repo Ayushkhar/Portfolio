@@ -1194,8 +1194,8 @@ button { cursor: pointer; border: none; background: none; }
 .project-num { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: var(--cyan); margin-bottom: 8px; }
 .project-info h3 { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
 .project-info p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
-.project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-.project-tags span { padding: 4px 12px; border-radius: var(--radius-pill); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-glass); font-size: 0.78rem; color: var(--text-secondary); }
+.project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+.project-tags span { padding: 4px 12px; border-radius: var(--radius-pill); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-glass); font-size: 0.78rem; color: var(--text-secondary); white-space: nowrap; }
 
 /* REVIEWS MARQUEE */
 .marquee-wrapper {
