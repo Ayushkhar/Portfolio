@@ -84,11 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Progress bar
     if (scrollProgress) scrollProgress.style.width = `${(scrollY / totalHeight) * 100}%`;
 
-    // Spline parallax — only while hero is visible
-    if (splineWrapper && scrollY < window.innerHeight) {
-      splineWrapper.style.transform = `translateY(${scrollY * 0.28}px)`;
-    }
-
     // Scrolled navbar glass
     navbar?.classList.toggle('scrolled', scrollY > 50);
 
@@ -279,18 +274,7 @@ async def evaluate_exam(payload: ExamPayload):
     });
   });
 
-  // ── 15. 3D CARD TILT ──────────────────────────────────────────────────
-  document.querySelectorAll('[data-tilt]').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r  = card.getBoundingClientRect();
-      const rx = (e.clientY - r.top  - r.height / 2) / 18;
-      const ry = (r.width / 2 - (e.clientX - r.left)) / 18;
-      card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-5px)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-    });
-  });
+
 
   // ── 16. CONTACT FORM — SMART MAILTO ────────────────────────────────────
   const form = document.getElementById('contact-form');
