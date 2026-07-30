@@ -89,11 +89,66 @@
   <!-- ═══════════════ HERO SECTION ═══════════════ -->
   <section id="home" class="hero">
 
-    <!-- Minimal Ambient Glow Background -->
-    <div class="hero-ambient" aria-hidden="true">
-      <div class="ambient-blob blob-1"></div>
-      <div class="ambient-blob blob-2"></div>
-      <div class="ambient-blob blob-3"></div>
+    <!-- Minimal Breathing Globe -->
+    <div class="hero-globe-wrap" aria-hidden="true">
+      <svg class="hero-globe" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Sphere fill: deep dark to subtle cyan/purple tint -->
+          <radialGradient id="sphereGrad" cx="38%" cy="35%" r="62%">
+            <stop offset="0%"  stop-color="#1a1a2e"/>
+            <stop offset="55%" stop-color="#0f0f1a"/>
+            <stop offset="100%" stop-color="#06060d"/>
+          </radialGradient>
+          <!-- Highlight for depth -->
+          <radialGradient id="highlightGrad" cx="36%" cy="32%" r="50%">
+            <stop offset="0%"  stop-color="rgba(6,182,212,0.18)"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </radialGradient>
+          <!-- Outer glow -->
+          <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"  stop-color="rgba(139,92,246,0.22)"/>
+            <stop offset="60%" stop-color="rgba(6,182,212,0.08)"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </radialGradient>
+          <filter id="softGlow">
+            <feGaussianBlur stdDeviation="14" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <clipPath id="globeClip">
+            <circle cx="250" cy="250" r="168"/>
+          </clipPath>
+        </defs>
+
+        <!-- Ambient glow halo behind globe -->
+        <circle cx="250" cy="250" r="220" fill="url(#glowGrad)" filter="url(#softGlow)">
+          <animate attributeName="r" values="210;230;210" dur="6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.7;1;0.7" dur="6s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Globe sphere -->
+        <g class="globe-breathe">
+          <!-- Base sphere -->
+          <circle cx="250" cy="250" r="168" fill="url(#sphereGrad)" stroke="rgba(139,92,246,0.25)" stroke-width="1"/>
+
+          <!-- Grid lines clipped inside sphere -->
+          <g clip-path="url(#globeClip)" opacity="0.55">
+            <!-- Latitude lines -->
+            <ellipse cx="250" cy="190" rx="168" ry="28" fill="none" stroke="rgba(6,182,212,0.5)" stroke-width="0.8"/>
+            <ellipse cx="250" cy="250" rx="168" ry="52" fill="none" stroke="rgba(6,182,212,0.45)" stroke-width="0.8"/>
+            <ellipse cx="250" cy="310" rx="168" ry="28" fill="none" stroke="rgba(6,182,212,0.4)" stroke-width="0.8"/>
+            <!-- Longitude lines -->
+            <ellipse cx="250" cy="250" rx="42"  ry="168" fill="none" stroke="rgba(139,92,246,0.45)" stroke-width="0.8"/>
+            <ellipse cx="250" cy="250" rx="100" ry="168" fill="none" stroke="rgba(139,92,246,0.35)" stroke-width="0.8"/>
+            <ellipse cx="250" cy="250" rx="152" ry="168" fill="none" stroke="rgba(139,92,246,0.25)" stroke-width="0.8"/>
+          </g>
+
+          <!-- Sphere rim highlight -->
+          <circle cx="250" cy="250" r="168" fill="url(#highlightGrad)"/>
+
+          <!-- Specular highlight dot -->
+          <ellipse cx="206" cy="198" rx="28" ry="18" fill="rgba(255,255,255,0.07)"/>
+        </g>
+      </svg>
     </div>
 
     <!-- Radial Dark Glow Vignette overlay for text legibility -->
