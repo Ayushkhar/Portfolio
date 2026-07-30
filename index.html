@@ -89,72 +89,8 @@
   <!-- ═══════════════ HERO SECTION ═══════════════ -->
   <section id="home" class="hero">
 
-    <!-- SVG Animated Orb Graphic -->
-    <div class="spline-container" id="spline-wrapper" aria-hidden="true">
-      <svg class="hero-orb-svg" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="orbGrad" cx="38%" cy="38%" r="60%">
-            <stop offset="0%" stop-color="#06b6d4"/>
-            <stop offset="40%" stop-color="#6366f1"/>
-            <stop offset="80%" stop-color="#a855f7"/>
-            <stop offset="100%" stop-color="#0e0e1a"/>
-          </radialGradient>
-          <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.5"/>
-            <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="blur1"><feGaussianBlur stdDeviation="28"/></filter>
-          <filter id="blur2"><feGaussianBlur stdDeviation="8"/></filter>
-          <filter id="glow"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-
-        <!-- Ambient glow blob -->
-        <circle cx="350" cy="350" r="280" fill="url(#glowGrad)" filter="url(#blur1)" opacity="0.9">
-          <animate attributeName="r" values="260;300;260" dur="5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.7;1;0.7" dur="5s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- Outer ring 1 - cyan, tilted ellipse -->
-        <ellipse cx="350" cy="350" rx="290" ry="100" fill="none" stroke="#06b6d4" stroke-width="2" stroke-dasharray="12 8" opacity="0.85" filter="url(#glow)">
-          <animateTransform attributeName="transform" type="rotate" from="0 350 350" to="360 350 350" dur="12s" repeatCount="indefinite"/>
-        </ellipse>
-
-        <!-- Outer ring 2 - purple, different tilt -->
-        <ellipse cx="350" cy="350" rx="260" ry="80" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="8 14" opacity="0.9" filter="url(#glow)" transform="rotate(60 350 350)">
-          <animateTransform attributeName="transform" type="rotate" from="60 350 350" to="420 350 350" dur="16s" repeatCount="indefinite"/>
-        </ellipse>
-
-        <!-- Inner ring - pink -->
-        <ellipse cx="350" cy="350" rx="190" ry="60" fill="none" stroke="#ec4899" stroke-width="2" stroke-dasharray="6 10" opacity="0.85" filter="url(#glow)" transform="rotate(130 350 350)">
-          <animateTransform attributeName="transform" type="rotate" from="130 350 350" to="490 350 350" dur="9s" repeatCount="indefinite"/>
-        </ellipse>
-
-        <!-- Core orb sphere -->
-        <circle cx="350" cy="350" r="110" fill="url(#orbGrad)" filter="url(#blur2)" opacity="0.95">
-          <animate attributeName="r" values="105;118;105" dur="3.5s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- Core highlight -->
-        <circle cx="318" cy="318" r="38" fill="white" opacity="0.22"/>
-
-        <!-- Orbiting dot on ring 1 -->
-        <circle r="6" fill="#06b6d4" filter="url(#glow)" opacity="0.95">
-          <animateMotion dur="12s" repeatCount="indefinite">
-            <mpath href="#orbit1"/>
-          </animateMotion>
-        </circle>
-        <path id="orbit1" d="M 640 350 A 290 100 0 1 1 639.99 350.01" fill="none"/>
-
-        <!-- Orbiting dot on ring 2 -->
-        <circle r="5" fill="#a855f7" filter="url(#glow)" opacity="0.9">
-          <animateMotion dur="16s" repeatCount="indefinite">
-            <mpath href="#orbit2"/>
-          </animateMotion>
-        </circle>
-        <path id="orbit2" d="M 610 350 A 260 80 60 1 1 609.99 350.01" fill="none" transform="rotate(60 350 350)"/>
-      </svg>
-    </div>
+    <!-- Minimal Hero Background -->
+    <div class="spline-container" id="spline-wrapper" aria-hidden="true"></div>
 
     <!-- Radial Dark Glow Vignette overlay for text legibility -->
     <div class="hero-overlay" aria-hidden="true"></div>

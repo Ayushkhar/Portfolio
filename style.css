@@ -496,14 +496,15 @@ button { cursor: pointer; border: none; background: none; }
 
 /* SVG ORB */
 .hero-orb-svg {
-  width: min(720px, 92vw);
-  height: min(720px, 92vh);
-  pointer-events: none;
-  overflow: visible;
+  display: none;
 }
 
 .hero-overlay {
-  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(circle at center, rgba(7, 7, 10, 0.0) 0%, rgba(7, 7, 10, 0.35) 60%, #07070a 100%);
+  pointer-events: none;
 }
 
 .hero-socials { display: flex; justify-content: center; gap: 24px; margin-top: 32px; }
