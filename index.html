@@ -120,13 +120,10 @@
         </defs>
 
         <!-- Ambient glow halo behind globe -->
-        <circle cx="250" cy="250" r="220" fill="url(#glowGrad)" filter="url(#softGlow)">
-          <animate attributeName="r" values="210;230;210" dur="6s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.7;1;0.7" dur="6s" repeatCount="indefinite"/>
-        </circle>
+        <circle cx="250" cy="250" r="220" fill="url(#glowGrad)" filter="url(#softGlow)" opacity="0.85"></circle>
 
         <!-- Globe sphere -->
-        <g class="globe-breathe">
+        <g class="globe-static">
           <!-- Base sphere -->
           <circle cx="250" cy="250" r="168" fill="url(#sphereGrad)" stroke="rgba(139,92,246,0.25)" stroke-width="1"/>
 
@@ -922,99 +919,10 @@
   </footer>
 
   <!-- Back to top button -->
+  <!-- BACK TO TOP BUTTON -->
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
 
-  <!-- AURORA BACKGROUND CANVAS -->
-  <canvas id="aurora-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
-
-  <script>
-  (function() {
-    const canvas = document.getElementById('aurora-bg');
-    const ctx = canvas.getContext('2d');
-    let W, H;
-
-    const blobDefs = [
-      { x: 0.15, y: 0.5,  r: 0.40, h: 270, speed: 0.00012, phase: 0    },
-      { x: 0.85, y: 0.3,  r: 0.38, h: 195, speed: 0.00015, phase: 2.1  },
-      { x: 0.5,  y: 0.85, r: 0.35, h: 262, speed: 0.00010, phase: 4.2  },
-      { x: 0.3,  y: 0.15, r: 0.30, h: 200, speed: 0.00014, phase: 1.5  },
-      { x: 0.75, y: 0.72, r: 0.32, h: 280, speed: 0.00011, phase: 3.3  },
-    ];
-
-    // Ultra-lightweight pre-rendered star points (zero dynamic radial gradients per frame)
-    const NUM_DOTS = 80;
-    let dots = [];
-    function seedDots() {
-      dots = [];
-      for (let i = 0; i < NUM_DOTS; i++) {
-        dots.push({
-          x:     Math.random() * W,
-          y:     Math.random() * H,
-          r:     Math.random() * 1.1 + 0.5,
-          phase: Math.random() * Math.PI * 2,
-          speed: Math.random() * 0.0005 + 0.0002,
-        });
-      }
-    }
-
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-      seedDots();
-    }
-
-    let t = 0;
-    let lastRender = 0;
-    function draw(ts) {
-      // Throttle canvas render loop to 60 FPS max (every 16ms) to prevent CPU hogging
-      if (ts - lastRender < 16) {
-        requestAnimationFrame(draw);
-        return;
-      }
-      lastRender = ts;
-      t = ts;
-      ctx.clearRect(0, 0, W, H);
-
-      // Render Aurora Blobs
-      for (let i = 0; i < blobDefs.length; i++) {
-        const b = blobDefs[i];
-        const ox = Math.sin(t * b.speed + b.phase) * 0.06 * W;
-        const oy = Math.cos(t * b.speed * 0.7 + b.phase) * 0.05 * H;
-        const cx = b.x * W + ox;
-        const cy = b.y * H + oy;
-        const r  = b.r * Math.max(W, H);
-        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-        grad.addColorStop(0,   `hsla(${b.h}, 85%, 55%, 0.10)`);
-        grad.addColorStop(0.6, `hsla(${b.h}, 75%, 40%, 0.04)`);
-        grad.addColorStop(1,   `hsla(${b.h}, 65%, 25%, 0)`);
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.fillStyle = grad;
-        ctx.fill();
-      }
-
-      // Render Star Dots with fast pure arcs (no dynamic radial gradient allocation)
-      ctx.fillStyle = 'rgba(255, 215, 80, 0.7)';
-      for (let i = 0; i < dots.length; i++) {
-        const d = dots[i];
-        const alpha = (Math.sin(t * d.speed + d.phase) + 1) / 2;
-        ctx.globalAlpha = alpha * 0.7 + 0.15;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1.0;
-
-      requestAnimationFrame(draw);
-    }
-
-    window.addEventListener('resize', resize);
-    resize();
-    requestAnimationFrame(draw);
-  })();
-  </script>
 
   <script src="main.js"></script>
 </body>
