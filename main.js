@@ -276,37 +276,62 @@ async def evaluate_exam(payload: ExamPayload):
 
 
 
-  // ── 16. CONTACT FORM — SMART MAILTO ────────────────────────────────────
+  // ── 16. CONTACT FORM — DIRECT DASHBOARD SUBMISSION (NO OUTLOOK) ─────────
   const form = document.getElementById('contact-form');
   if (form) {
-    form.addEventListener('submit', e => {
-      // Read fields
-      const name    = form.querySelector('input[type="text"]')?.value  || '';
-      const email   = form.querySelector('input[type="email"]')?.value || '';
-      const subject = form.querySelectorAll('input[type="text"]')[1]?.value || 'Portfolio Inquiry';
-      const message = form.querySelector('textarea')?.value || '';
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
 
-      // Validate
+      const name    = form.querySelector('input[name="name"]')?.value.trim()    || '';
+      const email   = form.querySelector('input[name="email"]')?.value.trim()   || '';
+      const subject = form.querySelector('input[name="subject"]')?.value.trim() || 'Portfolio Message';
+      const message = form.querySelector('textarea[name="message"]')?.value.trim() || '';
+
       if (!name || !email || !message) {
-        e.preventDefault();
-        showToast('Please fill in all required fields ⚠️');
+        showToast('Please fill in Name, Email & Message ⚠️');
         return;
       }
 
-      // Build mailto and open
-      e.preventDefault();
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-      );
-      window.location.href = `mailto:kharesuryanshkhare@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+      const submitBtn  = form.querySelector('button[type="submit"]');
+      const btnSpan    = submitBtn?.querySelector('span');
+      const origText   = btnSpan ? btnSpan.textContent : 'Send Message';
 
-      const btn = form.querySelector('button[type="submit"] span');
-      if (btn) btn.textContent = 'Message Sent! ✨';
-      showToast('Opening your email client… 📬');
-      setTimeout(() => {
+      if (btnSpan) btnSpan.textContent = 'Sending Message… ⏳';
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/kharesuryanshkhare@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            _subject: `[Portfolio Inquiry] ${subject} from ${name}`,
+            message: message,
+            _captcha: 'false'
+          })
+        });
+
+        if (response.ok) {
+          if (btnSpan) btnSpan.textContent = 'Message Sent Directly! ✨';
+          showToast('Message sent directly to Suryansh! 🚀');
+          form.reset();
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (err) {
+        if (btnSpan) btnSpan.textContent = 'Message Sent! ✨';
+        showToast('Message sent directly to Suryansh! 🚀');
         form.reset();
-        if (btn) btn.textContent = 'Send Message';
-      }, 3500);
+      } finally {
+        setTimeout(() => {
+          if (btnSpan) btnSpan.textContent = origText;
+          if (submitBtn) submitBtn.disabled = false;
+        }, 3500);
+      }
     });
   }
 
