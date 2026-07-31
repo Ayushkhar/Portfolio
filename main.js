@@ -35,14 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const text = item.getAttribute('data-copy');
       if (!text) return;
       navigator.clipboard.writeText(text)
-        .then(() => showToast(`Copied: ${text} 📋`))
+        .then(() => showToast(`Copied: ${text}`))
         .catch(() => showToast(`Copied: ${text}`));
     });
   });
 
   // ── 4. RESUME TOAST ────────────────────────────────────────────────────
-  document.getElementById('download-cv-btn')?.addEventListener('click', () => showToast('Opening Resume… 📄✨'));
-  document.getElementById('hero-resume-btn')?.addEventListener('click', () => showToast('Opening Resume… 📄✨'));
+  document.getElementById('download-cv-btn')?.addEventListener('click', () => showToast('Opening Resume...'));
+  document.getElementById('hero-resume-btn')?.addEventListener('click', () => showToast('Opening Resume...'));
 
   // ── 5. MAGNETIC BUTTONS ────────────────────────────────────────────────
   document.querySelectorAll('.magnetic-btn').forEach(btn => {
@@ -288,7 +288,7 @@ async def evaluate_exam(payload: ExamPayload):
       const message = form.querySelector('textarea[name="message"]')?.value.trim() || '';
 
       if (!name || !email || !message) {
-        showToast('Please fill in Name, Email & Message ⚠️');
+        showToast('Please fill in Name, Email & Message');
         return;
       }
 
@@ -296,7 +296,7 @@ async def evaluate_exam(payload: ExamPayload):
       const btnSpan    = submitBtn?.querySelector('span');
       const origText   = btnSpan ? btnSpan.textContent : 'Send Message';
 
-      if (btnSpan) btnSpan.textContent = 'Sending Message… ⏳';
+      if (btnSpan) btnSpan.textContent = 'Sending Message...';
       if (submitBtn) submitBtn.disabled = true;
 
       try {
@@ -316,15 +316,15 @@ async def evaluate_exam(payload: ExamPayload):
         });
 
         if (response.ok) {
-          if (btnSpan) btnSpan.textContent = 'Message Sent Directly! ✨';
-          showToast('Message sent directly to Suryansh! 🚀');
+          if (btnSpan) btnSpan.textContent = 'Message Sent Successfully!';
+          showToast('Message sent successfully.');
           form.reset();
         } else {
           throw new Error('Server error');
         }
       } catch (err) {
-        if (btnSpan) btnSpan.textContent = 'Message Sent! ✨';
-        showToast('Message sent directly to Suryansh! 🚀');
+        if (btnSpan) btnSpan.textContent = 'Message Sent Successfully!';
+        showToast('Message sent successfully.');
         form.reset();
       } finally {
         setTimeout(() => {
